@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Simulator</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>CPU Simulator</h1>
+
+        <div class="layout">
+
+            <section class="card program-card">
+                <h2>Program</h2>
+
+                <div class="input-header">
+
+                    <div class="mode-switch">
+                        <button id="assemblyMode" class="mode-button active">
+                            Assembly
+                        </button>
+
+                        <button id="binaryMode" class="mode-button">
+                            Binary
+                        </button>
+                    </div>
+                </div>
+
+                <textarea id="programInput"></textarea>
+                <div class="controls">
+                    <button id="run">実行</button>
+                    <button id="stop">停止</button>
+                </div>
+
+                <div class="input-area">
+                    <label for="inInput">IN</label>
+
+                    <input type="number" id="inInput" min="0" max="15" value="0">
+                </div>
+
+                <p id="message" class="message"></p>
+            </section>
+
+            <section class="card status-card">
+                <h2>CPU Status</h2>
+
+                <div class="status-grid">
+
+                    <div class="status-item">
+                        <span class="status-label">PC</span>
+                        <span id="pcValue" class="status-value">0</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">FLAG</span>
+                        <span id="flagValue" class="status-value">0</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">A</span>
+                        <span id="aValue" class="status-value">0</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">B</span>
+                        <span id="bValue" class="status-value">0</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">IN</span>
+                        <span id="inValue" class="status-value">0</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">OUT</span>
+                        <span id="outValue" class="status-value">0</span>
+                    </div>
+
+                </div>
+
+                <section class="card output-card">
+                    <h2>OUT</h2>
+
+                    <div class="led-output">
+                        <div class="led-bit">
+                            <span class="led" id="outLed3"></span>
+                            <span>3</span>
+                        </div>
+
+                        <div class="led-bit">
+                            <span class="led" id="outLed2"></span>
+                            <span>2</span>
+                        </div>
+
+                        <div class="led-bit">
+                            <span class="led" id="outLed1"></span>
+                            <span>1</span>
+                        </div>
+
+                        <div class="led-bit">
+                            <span class="led" id="outLed0"></span>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <p class="output-value">
+                        OUT: <span id="outValue">0</span>
+                    </p>
+                </section>
+            </section>
+
+
+        </div>
+
+    </main>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

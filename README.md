@@ -1,2 +1,56 @@
-# 4bit-CPU-simulator
-A web-based 4bit CPU simulator with Assembly and Binary programming modes.
+# 4bit CPU Simulator
+
+4bit CPUの動作をシミュレーションするWebアプリです。
+AssemblyモードとBinaryモードに対応しています。
+
+## できること
+
+* Assembly(ニーモニック)でプログラムを入力
+* Binaryで命令コードを入力
+* 1秒ごとに1命令を実行
+* Run / Stop
+* PC、A、B、IN、OUT、FLAGの確認
+* OUTを4つのLEDで表示
+
+## 使い方
+
+1. プログラムを入力して、AssemblyまたはBinaryを選択します
+3. 実行します
+4. 停止します
+
+## Assemblyの例
+
+```
+IN A
+MOV B, A
+ADD A, 1
+OUT B
+```
+
+## Binaryの例
+
+配列のままでも大丈夫です
+```
+B00100000
+B01000000
+B00000001
+B10010000
+```
+
+## CPU Status
+
+* PC: 現在のプログラムアドレス
+* A: Aレジスタ
+* B: Bレジスタ
+* IN: 外部入力
+* OUT: 外部出力
+* FLAG: キャリーフラグ
+
+## OUT LED
+
+OUTの値を4つのLEDで表示します。
+
+## 注意
+
+このシミュレーターは現在開発中です。
+想定していない入力をすると、正しく動作しない場合があります。

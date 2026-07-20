@@ -286,7 +286,7 @@ function assembleLine(line) {
         if (operand1 === "B") {
             return parseInt("10010000", 2);
         }
-        const immediate = Number(operand2);
+        const immediate = Number(operand1);
         return parseInt(
             "1011" + immediate.toString(2).padStart(4, "0"),
             2

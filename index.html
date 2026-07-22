@@ -118,7 +118,76 @@
             </section>
 
 
+            <section class="card settings-card">
+
+                <h2>Settings</h2>
+
+                <div class="settings-grid">
+
+                    <div class="setting-item">
+
+                        <label for="cycleInput"> 周期 (ms) </label>
+
+                        <input type="number" id="cycleInput" min="100" max="1000" value="1000">
+                    </div>
+
+                    <div class="setting-item checkbox-item">
+
+                        <label>
+                            <input type="checkbox" id="pcLoopMode">
+
+                            PCを0〜15でループ
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <h3>Reset State</h3>
+
+                <div class="reset-settings">
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="resetA" checked>
+
+                        Aを0に初期化
+                    </label>
+
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="resetB" checked>
+
+                        Bを0に初期化
+                    </label>
+
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="resetOut" checked>
+
+                        OUTを0に初期化
+                    </label>
+
+                </div>
+
+            </section>
+
+            <section class="card binary-card">
+
+                <h2>Assembly → Binary</h2>
+
+                <textarea id="binaryOutput" readonly placeholder="Assemblyを入力するとBinaryが表示されます"></textarea>
+
+                <div class="controls">
+                    <button id="copyBinaryButton"> Binaryをコピー </button>
+                </div>
+
+                <p id="binaryMessage" class="message"></p>
+
+            </section>
+
         </div>
+
 
     </main>
 

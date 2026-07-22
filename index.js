@@ -98,6 +98,15 @@ const outLed0 = document.getElementById("outLed0");
 const assemblyModeButton = document.getElementById("assemblyMode");
 const binaryModeButton = document.getElementById("binaryMode");
 
+const cycleInput = document.getElementById("cycleInput");
+const pcLoopMode = document.getElementById("pcLoopMode");
+const resetA = document.getElementById("resetA");
+const resetB = document.getElementById("resetB");
+const resetOut = document.getElementById("resetOut");
+
+const binaryOutput = document.getElementById("binaryOutput");
+const copyBinaryButton = document.getElementById("copyBinaryButton");
+const binaryMessage = document.getElementById("binaryMessage");
 
 function updateDisplay() {
     pcValue.textContent = PC;
@@ -143,10 +152,14 @@ function operate(instruction) {
 }
 
 function resetState() {
-    A.set(0);
-    B.set(0);
-    Out.set(0);
+    // PCは必ず初期化
     PC = 0;
+
+    // チェックされているものだけ0にする
+    if (resetA.checked) A.set(0);
+    if (resetB.checked) B.set(0);
+    if (resetOut.checked) Out.set(0);
+
 }
 
 runButton.addEventListener("click", () => {
@@ -155,10 +168,17 @@ runButton.addEventListener("click", () => {
         return;
     }
 
+    const cycle = Math.max(100, Math.min(1000, cycleInput.value));
+    cycleInput.value = cycle;
+
     const text = programInput.value;
 
     if (inputMode === "assembly") {
-        instructions = assemble(text);
+        const assembled = assemble(text);
+
+        instructions = assembled.map(item => item.instruction);
+
+        binaryOutput.value = assemblyToBinary(assembled);
     } else {
         instructions = parseBinary(text);
     }
@@ -168,6 +188,8 @@ runButton.addEventListener("click", () => {
         return;
     }
 
+    fillInstructions(instructions);
+
     console.log(instructions);
     resetState();
     isPlaying = true;
@@ -175,16 +197,20 @@ runButton.addEventListener("click", () => {
     message.textContent = "実行中";
 
     timer = setInterval(() => {
-        if (PC >= instructions.length || PC >= 16) {
-            clearInterval(timer);
-            timer = null;
-            isPlaying = false;
-            message.textContent = "プログラムが終了しました";
-            return;
+        if (PC >= 16) {
+            if (pcLoopMode.checked) {
+                PC = 0;
+            } else {
+                clearInterval(timer);
+                timer = null;
+                isPlaying = false;
+                message.textContent = "プログラムが終了しました";
+                return;
+            }
         }
 
         operate(instructions[PC]);
-    }, 1000);
+    }, cycle);
 });
 
 
@@ -199,6 +225,15 @@ stopButton.addEventListener("click", () => {
 
     message.textContent = "停止しました";
 });
+
+
+function fillInstructions(instructions) {
+    while (instructions.length < 16) {
+        instructions.push(0);
+    }
+
+    return instructions;
+}
 
 
 // アセンブリとバイナリの切り替え
@@ -223,12 +258,27 @@ binaryModeButton.addEventListener("click", () => {
 
 // アセンブリのコード読み取り
 function assemble(text) {
+
     return text
         .split("\n")
         .map(line => line.trim())
         .filter(line => line !== "")
-        .map(line => assembleLine(line))
-        .filter(instruction => instruction !== null);
+        .map(line => {
+
+            const instruction = assembleLine(line);
+
+            if (instruction === null) {
+                return null;
+            }
+
+            return {
+                instruction: instruction,
+                source: line
+            };
+
+        })
+        .filter(item => item !== null);
+
 }
 
 function assembleLine(line) {
@@ -237,7 +287,7 @@ function assembleLine(line) {
     const operand1 = parts[1];
     const operand2 = parts[2];
 
-    //console.log(command, operand1, operand2);
+    console.log(command, operand1, operand2);
     if (command === "MOV" && operand1 === "A") {
         if (operand2 === "B")
             return parseInt("00010000", 2);
@@ -316,3 +366,58 @@ function parseBinary(text) {
     return (text.match(/B[01]{8}/g) || [])
         .map(binary => parseInt(binary.substring(1), 2));
 }
+
+// アセンブリのコードをバイナリに変換
+function instructionToBinary(instruction) {
+    return "B" + instruction
+        .toString(2)
+        .padStart(8, "0");
+}
+
+
+function assemblyToBinary(assembled) {
+
+    const lines = assembled.map((item, index) => {
+
+        const binary = instructionToBinary(item.instruction);
+
+        const address = index.toString(2).padStart(4, "0");
+
+        return `${binary}, // ADDR ${address} : ${item.source}`;
+
+    });
+
+    while (lines.length < 16) {
+
+        const address =
+            lines.length
+                .toString(2)
+                .padStart(4, "0");
+
+        lines.push(
+            `B00000000, // ADDR ${address} : ADD A, 0`
+        );
+
+    }
+
+    return lines.join("\n");
+
+}
+
+copyBinaryButton.addEventListener("click", async () => {
+
+    if (binaryOutput.value === "") {
+
+        binaryMessage.textContent =
+            "コピーするBinaryがありません";
+
+        return;
+    }
+
+    await navigator.clipboard.writeText(
+        binaryOutput.value
+    );
+
+    binaryMessage.textContent =
+        "Binaryをコピーしました";
+});

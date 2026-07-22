@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     padding: 24px;
@@ -15,54 +16,74 @@ body {
 
     background: #f3f4f6;
     color: #1f2937;
-
 }
 
+
 .container {
-    width: min(100%, 900px);
+    width: min(100%, 1000px);
     margin: 0 auto;
 }
 
+
 h1 {
     margin: 0 0 24px;
+
     font-size: 28px;
 }
 
+
+.card h2 {
+    margin: 0 0 16px;
+
+    font-size: 18px;
+}
+
+
 .layout {
     display: grid;
-    grid-template-columns: 1fr 300px;
+
+    grid-template-columns: minmax(0, 1fr) 300px;
+
     gap: 20px;
 }
+
 
 .card {
     padding: 20px;
 
     background: white;
+
     border: 1px solid #e5e7eb;
     border-radius: 12px;
 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card h2 {
-    margin: 0 0 16px;
-    font-size: 18px;
-}
 
+/* codes */
 .input-header {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
+
     gap: 16px;
+
+    margin-bottom: 12px;
 }
+
 
 .mode-switch {
     display: flex;
+
     gap: 4px;
 }
 
+
 .mode-button {
+    flex: 0 0 auto;
+
     padding: 6px 12px;
 
     color: #6b7280;
@@ -72,17 +93,30 @@ h1 {
     border-radius: 6px;
 
     cursor: pointer;
+
+    transition:
+        background 0.15s,
+        color 0.15s;
 }
+
+
+.mode-button:hover {
+    background: #e5e7eb;
+}
+
 
 .mode-button.active {
     color: white;
     background: #2563eb;
+
     border-color: #2563eb;
 }
+
 
 textarea {
     width: 100%;
     min-height: 360px;
+
     padding: 14px;
 
     resize: vertical;
@@ -101,7 +135,16 @@ textarea {
     border: 1px solid #374151;
     border-radius: 8px;
 
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
 }
+
+
+textarea::placeholder {
+    color: #6b7280;
+}
+
 
 textarea:focus,
 input:focus {
@@ -109,14 +152,20 @@ input:focus {
     outline-offset: 2px;
 }
 
+
+/* buttons */
 .controls {
     display: flex;
+
     gap: 10px;
+
     margin-top: 16px;
 }
 
+
 button {
     flex: 1;
+
     padding: 10px 16px;
 
     font-size: 15px;
@@ -127,42 +176,71 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s,
+        transform 0.1s;
 }
+
+
+button:active {
+    transform: translateY(1px);
+}
+
 
 #run {
     color: white;
     background: #2563eb;
 }
 
+
 #run:hover {
     background: #1d4ed8;
 }
+
 
 #stop {
     color: white;
     background: #dc2626;
 }
 
+
 #stop:hover {
     background: #b91c1c;
 }
 
+
+#copyBinaryButton {
+    color: white;
+    background: #059669;
+}
+
+
+#copyBinaryButton:hover {
+    background: #047857;
+}
+
+
+/* input */
 .input-area {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 
     gap: 12px;
-    margin-top: 20px;
 
+    margin-top: 20px;
 }
+
 
 .input-area label {
     font-weight: 600;
 }
 
+
 .input-area input {
     width: 100px;
+
     padding: 8px 10px;
 
     font-size: 16px;
@@ -170,45 +248,52 @@ button {
 
     border: 1px solid #d1d5db;
     border-radius: 6px;
-
 }
+
 
 .message {
     min-height: 24px;
+
     margin: 14px 0 0;
 
     font-weight: 600;
     text-align: center;
-
 }
 
+
+/* CPU Status */
 .status-grid {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 10px;
 }
+
 
 .status-item {
     padding: 14px;
 
     background: #f9fafb;
+
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-
 }
+
 
 .status-label {
     display: block;
+
     margin-bottom: 4px;
 
     color: #6b7280;
-    font-size: 13px;
 
+    font-size: 13px;
 }
+
 
 .status-value {
     display: block;
-
 
     font-family:
         "Consolas",
@@ -217,42 +302,62 @@ button {
 
     font-size: 24px;
     font-weight: 700;
-
 }
+
+
+/* LED出力 */
 
 .output-card {
     margin-top: 20px;
 }
 
+
 .led-output {
     display: flex;
+
     justify-content: center;
-    gap: 24px;
+
+    gap: 20px;
+
     padding: 20px 0;
 }
 
+
 .led-bit {
     display: flex;
+
     flex-direction: column;
     align-items: center;
+
     gap: 8px;
 
-    font-family: "Consolas", "Courier New", monospace;
+    font-family:
+        "Consolas",
+        "Courier New",
+        monospace;
+
     font-weight: 700;
 }
 
+
 .led {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
 
     border-radius: 50%;
 
     background: #374151;
+
     border: 3px solid #1f2937;
 
     box-shadow:
         inset 0 2px 5px rgba(0, 0, 0, 0.3);
+
+    transition:
+        background 0.15s,
+        box-shadow 0.15s;
 }
+
 
 .led.on {
     background: #ef4444;
@@ -263,26 +368,163 @@ button {
         inset 0 2px 5px rgba(255, 255, 255, 0.4);
 }
 
+
 .output-value {
     margin: 0;
 
-    font-family: "Consolas", "Courier New", monospace;
+    font-family:
+        "Consolas",
+        "Courier New",
+        monospace;
+
     font-size: 18px;
     font-weight: 700;
+
     text-align: center;
 }
 
+
+/* 設定 */
+.settings-card {
+    grid-column: 1 / -1;
+
+    padding: 16px 20px;
+}
+
+
+.settings-card h2 {
+    margin-bottom: 12px;
+}
+
+
+.settings-grid {
+    display: flex;
+
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 12px 20px;
+}
+
+
+.setting-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.setting-item label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.setting-item input[type="number"] {
+    width: 80px;
+
+    padding: 6px 8px;
+
+    font-size: 14px;
+    text-align: right;
+
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+
+.reset-settings {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px 16px;
+
+    margin-top: 12px;
+}
+
+
+.checkbox-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 14px;
+}
+
+
+.checkbox-item input {
+    width: 16px;
+    height: 16px;
+
+    accent-color: #2563eb;
+}
+
+
+/* binary変換 */
+.binary-card {
+    grid-column: 1 / -1;
+}
+
+
+#binaryOutput {
+    min-height: 280px;
+
+    color: #d1fae5;
+    background: #111827;
+}
+
+
+/* レスポンシブ */
 @media (max-width: 700px) {
+
     body {
         padding: 12px;
     }
+
 
     .layout {
         grid-template-columns: 1fr;
     }
 
+
+    .program-card,
+    .status-card,
+    .settings-card,
+    .binary-card {
+        grid-column: 1;
+    }
+
+
     textarea {
         min-height: 280px;
+    }
+
+
+    .settings-grid {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .setting-item {
+        justify-content: space-between;
+    }
+
+
+    .led-output {
+        gap: 14px;
+    }
+
+
+    .led {
+        width: 38px;
+        height: 38px;
     }
 
 }

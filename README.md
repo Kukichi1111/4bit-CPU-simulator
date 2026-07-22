@@ -11,6 +11,8 @@ AssemblyモードとBinaryモードに対応しています。
 * Run / Stop
 * PC、A、B、IN、OUT、FLAGの確認
 * OUTを4つのLEDで表示
+* AssemblyをBinaryに変換
+* レジスタの初期化の有無や周期の変更
 
 ## 使い方
 

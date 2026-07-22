@@ -179,6 +179,7 @@ runButton.addEventListener("click", () => {
         instructions = assembled.map(item => item.instruction);
 
         binaryOutput.value = assemblyToBinary(assembled);
+        binaryMessage.textContent = "";
     } else {
         instructions = parseBinary(text);
     }

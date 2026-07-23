@@ -110,6 +110,7 @@ function updateDisplay() {
     aValue.textContent = A.get();
     bValue.textContent = B.get();
     inValue.textContent = IN;
+    inInput.value = IN;
     outValue.textContent = Out.get();
     flagValue.textContent = FA.getF();
 
@@ -123,7 +124,7 @@ function updateDisplay() {
 
 
 function operate(instruction) {
-    IN = Number(inInput.value);
+    IN = Number(inInput.value) & 15;
 
     const D = instruction & 15;
 
@@ -161,7 +162,7 @@ runButton.addEventListener("click", () => {
         return;
     }
 
-    const cycle = Math.max(100, Math.min(1000, cycleInput.value));
+    const cycle = Math.max(1, Math.min(1000, cycleInput.value));
     cycleInput.value = cycle;
 
     const text = programInput.value;

@@ -434,18 +434,6 @@ button:active {
     border-radius: 6px;
 }
 
-
-.reset-settings {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 10px 16px;
-
-    margin-top: 12px;
-}
-
-
 .checkbox-item {
     display: flex;
 

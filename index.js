@@ -100,9 +100,6 @@ const binaryModeButton = document.getElementById("binaryMode");
 
 const cycleInput = document.getElementById("cycleInput");
 const pcLoopMode = document.getElementById("pcLoopMode");
-const resetA = document.getElementById("resetA");
-const resetB = document.getElementById("resetB");
-const resetOut = document.getElementById("resetOut");
 
 const binaryOutput = document.getElementById("binaryOutput");
 const copyBinaryButton = document.getElementById("copyBinaryButton");
@@ -152,14 +149,10 @@ function operate(instruction) {
 }
 
 function resetState() {
-    // PCは必ず初期化
+    A.set(0);
+    B.set(0);
+    Out.set(0);
     PC = 0;
-
-    // チェックされているものだけ0にする
-    if (resetA.checked) A.set(0);
-    if (resetB.checked) B.set(0);
-    if (resetOut.checked) Out.set(0);
-
 }
 
 runButton.addEventListener("click", () => {
